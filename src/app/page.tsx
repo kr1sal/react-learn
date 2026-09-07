@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { ActionButton, HelloWorld, ImageGallery, ProfileCard, TaskList } from "./learn";
 
 export default function Home() {
   return (
@@ -63,6 +64,12 @@ export default function Home() {
             Documentation
           </a>
         </div>
+        <br />
+        <HelloWorld />
+        <TaskList />
+        <ActionButton />
+        <ProfileCard />
+        <ImageGallery />
       </main>
     </div>
   );
