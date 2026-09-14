@@ -5,5 +5,5 @@ interface EmojiModel {
 }
 
 interface EmojiArgs {
-  query: string;
+  query: string | null;
 }

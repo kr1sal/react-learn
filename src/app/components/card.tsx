@@ -1,12 +1,12 @@
 import "./card.css"
 
-export default function Card() {
+export default function Card(args: { emoji: string, title: string, description: string }) {
 
     return (
         <div className="card">
-            <h1 className="emoji">😊</h1>
-            <h3 className="title">Smile Face</h3>
-            <p className="description">Смайл фейс, смешняфка рофл 2026 смешинка</p>
+            <h1 className="emoji">{args.emoji}</h1>
+            <h3 className="title">{args.title}</h3>
+            <p className="description">{args.description}</p>
         </div>
     )
 }
