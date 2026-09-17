@@ -1,18 +1,34 @@
 "use client";
 
 import "./main.css";
-import Card from "./components/card";
 import { getEmojis } from "./api/emoji";
-import { useEffect, useState } from "react";
+import Card from "./components/Card";
+import SnackbarField, { SnackbarFieldReducer } from "./components/SnackbarField";
+import { useEffect, useReducer, useState } from "react";
 
 export default function Home() {
   const [search, setSearch] = useState("");
   const [emojis, setEmojis] = useState<EmojiModel[]>([]);
+  const [snackbarsFieldState, dispatchSnackbarsFieldState] = useReducer(SnackbarFieldReducer, {
+    snackbars: [],
+  });
 
   useEffect(() => {
     const fetchEmojis = async () => {
-      const data = await getEmojis({ query: search ? search : null });
-      setEmojis(data);
+      try {
+        const data = await getEmojis({ query: search ? search : null });
+        setEmojis(data);
+      } catch (e) {
+        dispatchSnackbarsFieldState({
+          type: "add_snackbar",
+          snackbar: {
+            id: `${Date.now()}`,
+            title: "Error",
+            message: "There is a error here!",
+            duration: 3000,
+          }
+        });
+      }
     };
 
     if (search) {
@@ -33,10 +49,11 @@ export default function Home() {
 
       <main className="cards">
         {emojis.map((emoji) => (
-          console.log(emoji),
           <Card emoji={emoji.emoji} title={emoji.title} description={emoji.keywords.join(", ")} />
         ))}
       </main>
+
+      <SnackbarField {...snackbarsFieldState} onDeleteSnackbar={(id) => { console.log('death time'); dispatchSnackbarsFieldState({ type: "delete_snackbar", snackbarId: id }) }} />
     </div>
   );
 }
