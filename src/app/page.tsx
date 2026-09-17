@@ -1,69 +1,59 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import "./main.css";
+import { getEmojis } from "./api/emoji";
+import Card from "./components/Card";
+import SnackbarField, { SnackbarFieldReducer } from "./components/SnackbarField";
+import { useEffect, useReducer, useState } from "react";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
+  const [emojis, setEmojis] = useState<EmojiModel[]>([]);
+  const [snackbarsFieldState, dispatchSnackbarsFieldState] = useReducer(SnackbarFieldReducer, {
+    snackbars: [],
+  });
+
+  useEffect(() => {
+    const fetchEmojis = async () => {
+      try {
+        const data = await getEmojis({ query: search ? search : null });
+        setEmojis(data);
+      } catch (e) {
+        dispatchSnackbarsFieldState({
+          type: "add_snackbar",
+          snackbar: {
+            id: `${Date.now()}`,
+            title: "Error",
+            message: "There is a error here!",
+            duration: 3000,
+          }
+        });
+      }
+    };
+
+    if (search) {
+      fetchEmojis();
+    }
+  }, [search]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="main">
+      <header className="header">
+
+        <h1>Emoji Finder</h1>
+        <p>Find emoji by keywords</p>
+
+      </header>
+
+      <input id="1" className="search" placeholder="Search emoji" value={search} onChange={(e) => setSearch(e.target.value)} />
+
+      <main className="cards">
+        {emojis.map((emoji) => (
+          <Card emoji={emoji.emoji} title={emoji.title} description={emoji.keywords.join(", ")} />
+        ))}
       </main>
+
+      <SnackbarField {...snackbarsFieldState} onDeleteSnackbar={(id) => { console.log('death time'); dispatchSnackbarsFieldState({ type: "delete_snackbar", snackbarId: id }) }} />
     </div>
   );
 }
