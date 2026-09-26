@@ -1,0 +1,6 @@
+.snackbar-field {
+  display: flex;
+  position: fixed;
+  gap: 10px;
+  flex-direction: column;
+}
