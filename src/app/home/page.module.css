@@ -1,0 +1,66 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 40px;
+
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 688px;
+  width: 100%;
+
+  margin: 40px 40px 0 40px;
+  gap: 48px;
+}
+
+.title {
+}
+
+.description {
+}
+
+.page hr {
+  width: 100vw;
+  border: solid 1px #dee2e6;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  gap: 20px;
+
+  max-width: 688px;
+
+  margin: 0 40px 20px 40px;
+
+  @media (width <= 800px) {
+    justify-content: center;
+  }
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+
+  gap: 20px;
+
+  @media (width <= 800px) {
+    flex-direction: column;
+  }
+}
+
+.sb-1 {
+  flex-grow: 1;
+}
+
+.sb-2 {
+  flex-grow: 2;
+}
