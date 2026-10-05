@@ -1,4 +1,4 @@
-export const HOUSES = ["gryffindor", "hufflepuff", "ravenclaw", "slytherin"] as const;
+export const HOUSES = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"] as const;
 
 export type House = typeof HOUSES[number];
 
