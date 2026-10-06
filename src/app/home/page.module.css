@@ -64,3 +64,21 @@
 .sb-2 {
   flex-grow: 2;
 }
+
+.page-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 5;
+}
+
+.page-bar__prev,
+.page-bar__next {
+}
+
+.page-bar__prev_disabled,
+.page-bar__next_disabled {
+  display: none;
+}
+
+.page-bar__counter {
+}
