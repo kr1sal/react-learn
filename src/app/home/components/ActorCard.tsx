@@ -20,11 +20,14 @@ export default function ActorCard(props: ActorCardProps) {
     <Card imageSource={props.imageSource} title={props.role} id={props.id}>
       {Object.keys(description).map((fieldKey) => {
         const fieldValue = description[fieldKey];
-        return (
-          <p className={styles.description} key={fieldKey}>
-            {fieldKey + ': ' + fieldValue}
-          </p>
-        );
+        
+        if (fieldKey != "id"){       
+          return (
+            <p className={styles.description} key={fieldKey}>
+              {fieldKey + ': ' + fieldValue}
+            </p>
+          );
+        }
       })}
     </Card>
   );
