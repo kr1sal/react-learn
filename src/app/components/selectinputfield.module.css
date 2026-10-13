@@ -1,0 +1,17 @@
+.container {
+  composes: container from './inputfield.module.css';
+
+  flex-grow: 1;
+}
+
+.input {
+  composes: input from './inputfield.module.css';
+}
+
+.label {
+  composes: label from './inputfield.module.css';
+}
+
+.errorMessage {
+  composes: errorMessage from './inputfield.module.css';
+}
