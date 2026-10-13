@@ -1,9 +1,9 @@
-import Actor from '../../model/actor';
+import { CharacterCard } from '@/app/api/entities/charactercard';
+import Actor from '../../api/models/actor';
 import Card from './Card';
 import styles from './actorcard.module.css';
 
-export interface ActorCardProps extends Actor {
-  imageSource: string;
+export interface ActorCardProps extends CharacterCard {
 }
 
 export default function ActorCard(props: ActorCardProps) {
@@ -17,11 +17,11 @@ export default function ActorCard(props: ActorCardProps) {
   };
 
   return (
-    <Card imageSource={props.imageSource} title={props.role} id={props.id}>
+    <Card imageSource={props.imageSource ?? "https://images.pixels.com/images/artworkimages/mediumlarge/2/harry-potter-logo-brand-a.jpg"} title={props.role} id={props.id}>
       {Object.keys(description).map((fieldKey) => {
         const fieldValue = description[fieldKey];
-        
-        if (fieldKey != "id"){       
+
+        if (fieldKey != "id") {
           return (
             <p className={styles.description} key={fieldKey}>
               {fieldKey + ': ' + fieldValue}

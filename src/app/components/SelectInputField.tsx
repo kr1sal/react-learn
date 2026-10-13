@@ -1,6 +1,6 @@
 import styles from './selectinputfield.module.css';
 import { InputFieldProps } from './InputField';
-import { HOUSES, House, isHouse } from '../model/houses';
+import { HOUSES, House, isHouse } from '../api/models/houses';
 import { useState } from 'react';
 
 export interface SelectInputFieldProps extends InputFieldProps {

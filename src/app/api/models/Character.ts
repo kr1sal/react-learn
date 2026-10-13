@@ -43,3 +43,8 @@ export interface CharactersResponse {
   data: Character[];
   meta: Meta;
 }
+
+export interface CharacterByIdResponse {
+  data: Character;
+  meta: Meta;
+}

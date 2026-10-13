@@ -4,9 +4,9 @@ import styles from '@/app/home/page.module.css';
 import TextInputField from '@/app/components/TextInputField';
 import SelectInputField from '@/app/components/SelectInputField';
 import { useState, useEffect } from 'react';
-import HOUSES, { House, isHouse } from '@/app/model/houses';
+import HOUSES, { House, isHouse } from '@/app/api/models/houses';
 import ActorCard, { ActorCardProps } from './components/ActorCard';
-import { getHarryPotterCharacters } from '../api/HarryPotterAPI';
+import { getCharacterCards } from '../api/characters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
@@ -27,18 +27,9 @@ export default function Home() {
   const prevPage = () => { if (checkPrevPage()) setPage(page - 1) }
 
   const fetchData = async () => {
-    const data = await getHarryPotterCharacters(search, page, pageSize)
-    const characters = Array.isArray(data) ? data : data.data;
-    const mappedRoles: ActorCardProps[] = characters.map((character) => ({
-      id: character.id,
-      imageSource: character.image ?? '',
-      role: character.name,
-      actorName: character.alias_names[0] ?? 'Unknown',
-      gender: character.gender ?? 'Unknown',
-      house: (character.house as House) ?? 'Unknown',
-      wandCore: character.wands[0] ?? 'Unknown',
-      alive: character.died ? 'no' : 'yes',
-    }));
+    const data = await getCharacterCards(search, page, pageSize)
+    const characters = Array.isArray(data) ? data : data;
+    const mappedRoles: ActorCardProps[] = characters ?? [];
     setRoles(mappedRoles);
   }
 
