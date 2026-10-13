@@ -9,6 +9,7 @@ import ActorCard, { ActorCardProps } from './components/ActorCard';
 import { getCharacterCards } from '../api/characters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link';
 
 const pageSize = 25
 
@@ -89,7 +90,7 @@ export default function Home() {
 
       <div className={styles.content}>
         {filterRoles().map((role, index) => (
-          <ActorCard key={`${index}-${role.actorName}`} {...role}></ActorCard>
+          <Link href={`/characters/${role.id}`}><ActorCard key={`${index}-${role.actorName}`} {...role}></ActorCard></Link>
         ))}
       </div>
 
@@ -98,6 +99,6 @@ export default function Home() {
         <div className={styles["page-bar__counter"]}>{page}</div>
         <button className={styles["page-bar__next-btn"]} disabled={!checkNextPage()} onClick={(e) => { nextPage(); scrollTo(0, 0) }}><FontAwesomeIcon icon={faAngleRight} /></button>
       </div>
-    </div>
+    </div >
   );
 }

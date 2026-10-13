@@ -4,6 +4,7 @@ import Card from './Card';
 import styles from './actorcard.module.css';
 
 export interface ActorCardProps extends CharacterCard {
+  onClick?: () => void;
 }
 
 export default function ActorCard(props: ActorCardProps) {
