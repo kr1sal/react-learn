@@ -66,7 +66,7 @@ export default function Home() {
         <div className={styles.searchBar}>
           <TextInputField
             id="search"
-            onChange={(value) => { setSearch(value ?? ''); setPage(1) }}
+            onChange={(value) => { setSearch(value?.trim() ?? ''); setPage(1) }}
             value={search}
             placeholder="Hermione"
             label="Name"
@@ -90,7 +90,7 @@ export default function Home() {
 
       <div className={styles.content}>
         {filterRoles().map((role, index) => (
-          <Link href={`/characters/${role.id}`}><ActorCard key={`${index}-${role.actorName}`} {...role}></ActorCard></Link>
+          <Link key={`${index}-${role.actorName}`} href={`/characters/${role.id}`}><ActorCard {...role}></ActorCard></Link>
         ))}
       </div>
 
