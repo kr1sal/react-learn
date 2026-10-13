@@ -4,7 +4,7 @@ import { getHarryPotterCharacterById } from "@/app/api/HarryPotterAPI";
 import { ActorCardProps } from "@/app/home/components/ActorCard";
 import HOUSES, { House, isHouse } from '@/app/model/houses';
 import { useEffect, useState } from "react";
-
+import { useParams } from 'next/navigation';
 
 interface Props {
   params: Promise<{
@@ -29,7 +29,6 @@ export interface IAboutCharacterInfo {
   hairColor: string,
   height: string,
   wiki: string
-
 }
 
 
@@ -37,14 +36,18 @@ export default function AboutCharacter({ params }: Props ) {
   
   const [role, setRole] = useState<IAboutCharacterInfo | undefined>();
 
+  const page_id = useParams()  
+  
+
   const fetchData = async () => {
 
-    const data = await getHarryPotterCharacterById("1980s-hogwarts-gobstones-tournament-champion")
-    const character = data.data
+    const data = await getHarryPotterCharacterById(page_id.id as string)
+
+    const character = data[0]
 
 
     const charInfo = {
-      id: character.id,
+      id: page_id.id,
       photo: character.image ?? 'https://images.pixels.com/images/artworkimages/mediumlarge/2/harry-potter-logo-brand-a.jpg',
       name: character.name,
       gender: character.name,
@@ -75,7 +78,7 @@ export default function AboutCharacter({ params }: Props ) {
     <div>
       <div className="left_box">
         <h1>{role?.name}</h1>
-        <img src={role?.image} alt="Char photo" />
+        <img src={role?.photo} alt="Char photo" />
       </div>
 
 

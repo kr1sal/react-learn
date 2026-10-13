@@ -40,10 +40,6 @@ export interface Meta {
 }
 
 export interface CharactersResponse {
-  name: ReactNode;
-  image: string | Blob | undefined;
-  house: ReactNode;
-  gender: ReactNode;
   data: Character[];
   meta: Meta;
 }

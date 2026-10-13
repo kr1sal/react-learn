@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const API_URL = process.env.HARRY_POTTER_API;
 import { CharactersResponse } from './models/Character';
+import { IAboutCharacterInfo } from '../characters/[id]/page';
 
 export const getHarryPotterCharacters = async (
   search?: string,
@@ -23,10 +24,12 @@ export const getHarryPotterCharacters = async (
   }
 };
 
-export const getHarryPotterCharacterById = async (id: string) => {
+export const getHarryPotterCharacterById = async (id: string): Promise<IAboutCharacterInfo> => {
   try {
     const response = await axios.get<CharactersResponse>(`${API_URL}/${id}`);
-    return response.data;
+                                                                                         
+    
+    return response.data.data;
   } catch (error) {
     console.error('Failed to fetch Harry Potter character by ID', error);
     return [];
